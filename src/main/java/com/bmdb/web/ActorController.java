@@ -3,8 +3,12 @@ package com.bmdb.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.bmdb.business.Actor;
 import com.bmdb.db.ActorRepo;
@@ -25,9 +29,14 @@ public class ActorController {
 	
 	// get actor by id
 	@GetMapping("/{id}")
-	public Optional getActor(@PathVariable int id) {
-		Optional<Actor> m = actorRepo.findById(id);
-		return m;
+	public Optional<Actor> getActor(@PathVariable int id) {
+		Optional<Actor> a = actorRepo.findById(id);
+		if (a.isPresent()) {
+			return a;
+		}
+		else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor not found");
+		}
 	}
 	
 	// add a actor
@@ -44,8 +53,9 @@ public class ActorController {
 	
 	// delete a actor
 	@DeleteMapping("/")
-	public void deleteActor(@RequestBody Actor a) {
+	public Actor deleteActor(@RequestBody Actor a) {
 		actorRepo.delete(a);
+		return a;
 	}
 	
 }
