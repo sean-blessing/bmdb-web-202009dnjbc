@@ -25,7 +25,7 @@ public class MovieController {
 	
 	// get movie by id
 	@GetMapping("/{id}")
-	public Optional getMovie(@PathVariable int id) {
+	public Optional<Movie> getMovie(@PathVariable int id) {
 		Optional<Movie> m = movieRepo.findById(id);
 		return m;
 	}

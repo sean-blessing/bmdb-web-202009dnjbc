@@ -25,7 +25,7 @@ public class CreditController {
 	
 	// get credit by id
 	@GetMapping("/{id}")
-	public Optional getCredit(@PathVariable int id) {
+	public Optional<Credit> getCredit(@PathVariable int id) {
 		Optional<Credit> m = creditRepo.findById(id);
 		return m;
 	}
