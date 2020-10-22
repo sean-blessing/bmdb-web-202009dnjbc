@@ -11,7 +11,7 @@ import com.bmdb.db.CreditRepo;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/credits")
+@RequestMapping("/api/credits")
 public class CreditController {
 	
 	@Autowired
